@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'ng-bev-scraper'`, () => {
+  it(`should have as title 'ng-bev-ui'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('ng-bev-scraper');
+    expect(app.title).toEqual('ng-bev-ui');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('ng-bev-scraper app is running!');
+    expect(compiled.querySelector('.content span').textContent).toContain('ng-bev-ui app is running!');
   });
 });
