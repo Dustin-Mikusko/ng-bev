@@ -70,6 +70,44 @@ exports.methods = {
               };
               stockTable.push(stock);
           }
+
+          if (request.url().includes("sal-service/v1/fund/process/fixedIncomeStyle")) {
+            const stringText = await resp.text();
+            const text = JSON.parse(stringText);
+            const stock = {
+              [funds[i]]: {
+                "Effective Duration": {
+                  "Fund": text.avgEffectiveDuration == null ? null : text.avgEffectiveDuration.toFixed(2),
+                  "Cat. Average": text.categoryAverage.avgEffectiveDuration == null ? null : text.categoryAverage.avgEffectiveDuration.toFixed(2),
+                },
+                "Modified Duration": {
+                  "Fund": text.modifiedDuration == null ? null : text.modifiedDuration.toFixed(2),
+                  "Cat. Average": text.categoryAverage.modifiedDuration == null ? null : text.categoryAverage.modifiedDuration.toFixed(2),
+                },
+                "Effective Maturity": {
+                  "Fund": text.avgEffectiveMaturity == null ? null : text.avgEffectiveMaturity.toFixed(2),
+                  "Cat. Average": text.categoryAverage.avgEffectiveMaturity == null ? null : text.categoryAverage.avgEffectiveMaturity.toFixed(2),
+                },
+                "Credit Rating": {
+                  "Fund": text.avgCreditQualityName == null ? null : text.avgCreditQualityName,
+                  "Cat. Average": text.categoryAverage.avgCreditQualityName == null ? null : text.categoryAverage.avgCreditQualityName,
+                },
+                "Weighted Coupon": {
+                  "Fund": text.avgCoupon == null ? null : text.avgCoupon.toFixed(2),
+                  "Cat. Average": text.categoryAverage.avgCoupon == null ? null : text.categoryAverage.avgCoupon.toFixed(2),
+                },
+                "Weighted Price": {
+                  "Fund": text.avgPrice == null ? null : text.avgPrice.toFixed(2),
+                  "Cat. Average": text.categoryAverage.avgPrice == null ? null : text.categoryAverage.avgPrice.toFixed(2),
+                },
+                "Yield": {
+                  "Fund": text.yieldToMaturity == null ? null : text.yieldToMaturity.toFixed(2),
+                  "Cat. Average": text.categoryAverage.yieldToMaturity == null ? null : text.categoryAverage.yieldToMaturity.toFixed(2),
+                }
+              }
+            };
+            stockTable.push(stock);
+          }
         });
         await page.goto(
           `https://www.morningstar.com/funds/xnas/${funds[i]}/portfolio`
